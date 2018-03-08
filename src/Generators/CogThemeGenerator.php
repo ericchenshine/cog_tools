@@ -14,7 +14,7 @@ class CogThemeGenerator extends BaseGenerator
   protected $name = 'cog-theme';
   protected $description = 'Generates a cog theme.';
   protected $alias = 'cog';
-//  protected $templatePath = __DIR__;
+  protected $templatePath = __DIR__ . "/../../templates";
 //  protected $templatePath = 'templates';
   protected $destination = 'themes';
 
@@ -34,39 +34,39 @@ class CogThemeGenerator extends BaseGenerator
 
     $this->addFile()
       ->path($prefix . '.info.yml')
-      ->template('d8/yml/theme-info.twig');
+      ->template('starterkit/theme-info.twig');
 
     $this->addFile()
       ->path($prefix . '.libraries.yml')
-      ->template('d8/yml/theme-libraries.twig');
+      ->template('starterkit/theme-libraries.twig');
 
     $this->addFile()
       ->path($prefix . '.breakpoints.yml')
-      ->template('d8/yml/breakpoints.twig');
+      ->template('starterkit/breakpoints.twig');
 
     $this->addFile()
       ->path($prefix . '.theme')
-      ->template('d8/theme.twig');
+      ->template('starterkit/theme.twig');
 
     $this->addFile()
       ->path('{machine_name}/js/' . str_replace('_', '-', $vars['machine_name']) . '.js')
-      ->template('d8/javascript.twig');
+      ->template('starterkit/javascript.twig');
 
     $this->addFile()
       ->path('{machine_name}/theme-settings.php')
-      ->template('d8/theme-settings-form.twig');
+      ->template('starterkit/theme-settings-form.twig');
 
     $this->addFile()
       ->path('{machine_name}/config/install/{machine_name}.settings.yml')
-      ->template('d8/theme-settings-config.twig');
+      ->template('starterkit/theme-settings-config.twig');
 
     $this->addFile()
       ->path('{machine_name}/config/schema/{machine_name}.schema.yml')
-      ->template('d8/theme-settings-schema.twig');
+      ->template('starterkit/theme-settings-schema.twig');
 
     $this->addFile()
       ->path('{machine_name}/logo.svg')
-      ->template('d8/theme-logo.twig');
+      ->template('starterkit/theme-logo.twig');
 
     $this->addDirectory()
       ->path('{machine_name}/templates');
