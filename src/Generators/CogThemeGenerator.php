@@ -25,53 +25,58 @@ class CogThemeGenerator extends BaseGenerator
     $questions['description'] = new Question('Description', 'Acquia D8 starter theme');
     $questions['package'] = new Question('Package', 'Custom');
 
-
     $vars = $this->collectVars($input, $output, $questions);
+
+    $output->writeln('Creating sub theme!');
+
     $vars['base_theme'] = Utils::human2machine($vars['base_theme']);
+
+    // Where (inside themes/) to put this stuff, hardcoded for now.
+    $location = 'custom/';
 
     $prefix = $vars['machine_name'] . '/' . $vars['machine_name'];
 
     $this->addFile()
-      ->path($prefix . '.info.yml')
+      ->path($location . $prefix . '.info.yml')
       ->template('starterkit/theme-info.twig');
 
     $this->addFile()
-      ->path($prefix . '.libraries.yml')
+      ->path($location . $prefix . '.libraries.yml')
       ->template('starterkit/theme-libraries.twig');
 
     $this->addFile()
-      ->path($prefix . '.breakpoints.yml')
+      ->path($location . $prefix . '.breakpoints.yml')
       ->template('starterkit/breakpoints.twig');
 
     $this->addFile()
-      ->path($prefix . '.theme')
+      ->path($location . $prefix . '.theme')
       ->template('starterkit/theme.twig');
 
     $this->addFile()
-      ->path('{machine_name}/js/' . str_replace('_', '-', $vars['machine_name']) . '.js')
+      ->path($location . '{machine_name}/js/' . str_replace('_', '-', $vars['machine_name']) . '.js')
       ->template('starterkit/javascript.twig');
 
     $this->addFile()
-      ->path('{machine_name}/theme-settings.php')
+      ->path($location . '{machine_name}/theme-settings.php')
       ->template('starterkit/theme-settings-form.twig');
 
     $this->addFile()
-      ->path('{machine_name}/config/install/{machine_name}.settings.yml')
+      ->path($location . '{machine_name}/config/install/{machine_name}.settings.yml')
       ->template('starterkit/theme-settings-config.twig');
 
     $this->addFile()
-      ->path('{machine_name}/config/schema/{machine_name}.schema.yml')
+      ->path($location . '{machine_name}/config/schema/{machine_name}.schema.yml')
       ->template('starterkit/theme-settings-schema.twig');
 
     $this->addFile()
-      ->path('{machine_name}/logo.svg')
+      ->path($location . '{machine_name}/logo.svg')
       ->template('starterkit/theme-logo.twig');
 
     $this->addDirectory()
-      ->path('{machine_name}/templates');
+      ->path($location . '{machine_name}/templates');
 
     $this->addDirectory()
-      ->path('{machine_name}/images');
+      ->path($location . '{machine_name}/images');
 
     $css_files = [
       'base/elements.scss',
@@ -92,7 +97,7 @@ class CogThemeGenerator extends BaseGenerator
     ];
     foreach ($css_files as $file) {
       $this->addFile()
-        ->path('{machine_name}/sass/' . $file)
+        ->path($location . '{machine_name}/sass/' . $file)
         ->content('');
     }
 
@@ -103,7 +108,7 @@ class CogThemeGenerator extends BaseGenerator
 
     if ($options['gulp_tasks']) {
       $this->addFile()
-        ->path('{machine_name}/gulpfile.js')
+        ->path($location . '{machine_name}/gulpfile.js')
         ->template('optional/gulpfile.twig');
     }
 
