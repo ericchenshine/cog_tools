@@ -7,6 +7,7 @@ use DrupalCodeGenerator\Utils;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 
 class CogThemeGenerator extends BaseGenerator
@@ -15,14 +16,13 @@ class CogThemeGenerator extends BaseGenerator
   protected $description = 'Generates a cog theme.';
   protected $alias = 'cog';
   protected $templatePath = __DIR__ . "/../../templates";
-//  protected $templatePath = 'templates';
   protected $destination = 'themes';
 
   protected function interact(InputInterface $input, OutputInterface $output) {
     $questions['name'] = new Question('Theme name');
     $questions['machine_name'] = new Question('Theme machine name');
-    $questions['base_theme'] = new Question('Base theme', 'classy');
-    $questions['description'] = new Question('Description', 'A flexible theme with a responsive, mobile-first layout.');
+    $questions['base_theme'] = new Question('Base theme', 'cog');
+    $questions['description'] = new Question('Description', 'Acquia D8 starter theme');
     $questions['package'] = new Question('Package', 'Custom');
 
 
@@ -30,7 +30,6 @@ class CogThemeGenerator extends BaseGenerator
     $vars['base_theme'] = Utils::human2machine($vars['base_theme']);
 
     $prefix = $vars['machine_name'] . '/' . $vars['machine_name'];
-
 
     $this->addFile()
       ->path($prefix . '.info.yml')
@@ -75,26 +74,37 @@ class CogThemeGenerator extends BaseGenerator
       ->path('{machine_name}/images');
 
     $css_files = [
-      'base/elements.css',
-      'components/block.css',
-      'components/breadcrumb.css',
-      'components/field.css',
-      'components/form.css',
-      'components/header.css',
-      'components/menu.css',
-      'components/messages.css',
-      'components/node.css',
-      'components/sidebar.css',
-      'components/table.css',
-      'components/tabs.css',
-      'components/buttons.css',
-      'layouts/layout.css',
-      'theme/print.css',
+      'base/elements.scss',
+      'components/block.scss',
+      'components/breadcrumb.scss',
+      'components/field.scss',
+      'components/form.scss',
+      'components/header.scss',
+      'components/menu.scss',
+      'components/messages.scss',
+      'components/node.scss',
+      'components/sidebar.scss',
+      'components/table.scss',
+      'components/tabs.scss',
+      'components/buttons.scss',
+      'layouts/layout.scss',
+      'theme/print.scss',
     ];
     foreach ($css_files as $file) {
       $this->addFile()
-        ->path('{machine_name}/css/' . $file)
+        ->path('{machine_name}/sass/' . $file)
         ->content('');
+    }
+
+    // Additional files.
+    $option_questions['gulp_tasks'] = new ConfirmationQuestion('Would you like to create gulp files?', TRUE);
+
+    $options = $this->collectVars($input, $output, $option_questions);
+
+    if ($options['gulp_tasks']) {
+      $this->addFile()
+        ->path('{machine_name}/gulpfile.js')
+        ->template('optional/gulpfile.twig');
     }
 
   }
