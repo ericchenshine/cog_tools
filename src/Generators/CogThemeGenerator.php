@@ -116,16 +116,12 @@ class CogThemeGenerator extends BaseGenerator
       ->template('starterkit/.stylelintrc.json');
 
     $this->addFile()
-      ->path($location . '{machine_name}/logo.png')
-      ->template('starterkit/logo.png');
+      ->path($location . '{machine_name}/logo.svg')
+      ->template('starterkit/logo.twig');
 
     $this->addFile()
       ->path($location . '{machine_name}/install-node.sh')
       ->template('starterkit/install-node.sh');
-
-    $this->addFile()
-      ->path($location . '{machine_name}/screenshot.png')
-      ->template('starterkit/screenshot.png');
 
     $dir    = $this->templatePath . '/starterkit/_readme';
     $files = array_diff(scandir($dir), array('..', '.'));
@@ -136,18 +132,19 @@ class CogThemeGenerator extends BaseGenerator
         ->template('starterkit/_readme/' . $file);
     }
 
-    // @TODO need panel_layouts (layouts)
-//    $dir    = $this->templatePath . '/starterkit/panel_layouts';
-//    $files = array_diff(scandir($dir), array('..', '.'));
-//    foreach ($files as $file) {
-//      $output->writeln($file);
-//
-//      $this->addFile()
-//        ->path($location . '{machine_name}/panel_layouts/' . $file)
-//        ->template('starterkit/panel_layouts/' . $file);
-//    }
+    $dir    = $this->templatePath . '/starterkit/panel_layouts';
+    $directories = array_diff(scandir($dir), array('..', '.'));
 
-    // @TODO need _theming-guide
+    foreach ($directories as $directory) {
+      $dir    = $this->templatePath . '/starterkit/panel_layouts/' . $directory;
+      $files = array_diff(scandir($dir), array('..', '.'));
+      foreach ($files as $file) {
+        $this->addFile()
+          ->path($location . '{machine_name}/panel_layouts/' . $directory . '/' .  $file)
+          ->template('starterkit/panel_layouts/'  . $directory . '/' .  $file);
+      }
+    }
+
     $dir    = $this->templatePath . '/starterkit/_theming-guide';
     $files = array_diff(scandir($dir), array('..', '.'));
     foreach ($files as $file) {
@@ -168,70 +165,16 @@ class CogThemeGenerator extends BaseGenerator
         ->path($location . '{machine_name}/gulpfile.js')
         ->template('optional/gulpfile.twig');
 
-      // @TODO This seems dense.
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/browser-sync.js')
-        ->template('optional/gulp-tasks/browser-sync.js');
 
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/build.js')
-        ->template('optional/gulp-tasks/build.js');
+      $dir    = $this->templatePath . '/optional/gulp-tasks';
+      $files = array_diff(scandir($dir), array('..', '.'));
 
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/clean.js')
-        ->template('optional/gulp-tasks/clean.js');
+      foreach ($files as $file) {
+        $this->addFile()
+          ->path($location . '{machine_name}/gulp-tasks/' .  $file)
+          ->template('/optional/gulp-tasks/' . $file);
+      }
 
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/clean-css.js')
-        ->template('optional/gulp-tasks/clean-css.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/clean-styleguide.js')
-        ->template('optional/gulp-tasks/clean-styleguide.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/compile-js.js')
-        ->template('optional/gulp-tasks/compile-js.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/compile-sass.js')
-        ->template('optional/gulp-tasks/compile-sass.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/compile-styleguide.js')
-        ->template('optional/gulp-tasks/compile-styleguide.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/default.js')
-        ->template('optional/gulp-tasks/default.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/lint-css.js')
-        ->template('optional/gulp-tasks/lint-css.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/lint-js.js')
-        ->template('optional/gulp-tasks/lint-js.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/minify-css.js')
-        ->template('optional/gulp-tasks/minify-css.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/pa11y.js')
-        ->template('optional/gulp-tasks/pa11y.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/serve.js')
-        ->template('optional/gulp-tasks/serve.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/test-css.js')
-        ->template('optional/gulp-tasks/test-css.js');
-
-      $this->addFile()
-        ->path($location . '{machine_name}/gulp-tasks/watch.js')
-        ->template('optional/gulp-tasks/watch.js');
     }
 
   }
