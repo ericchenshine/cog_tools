@@ -80,6 +80,11 @@ class CogThemeGenerator extends BaseGenerator
     $this->addDirectory()
       ->path($location . '{machine_name}/images');
 
+    // Layouts
+    $this->addFile()
+      ->path($location . $prefix . '.layouts.yml')
+      ->template('starterkit/layouts.twig');
+
     $css_files = [
       'base/elements.scss',
       'components/block.scss',
@@ -114,10 +119,6 @@ class CogThemeGenerator extends BaseGenerator
     $this->addFile()
       ->path($location . '{machine_name}/.stylelintrc.json')
       ->template('starterkit/.stylelintrc.json');
-
-    $this->addFile()
-      ->path($location . '{machine_name}/logo.svg')
-      ->template('starterkit/logo.twig');
 
     $this->addFile()
       ->path($location . '{machine_name}/install-node.sh')
