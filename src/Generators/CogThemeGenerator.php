@@ -130,32 +130,30 @@ class CogThemeGenerator extends BaseGenerator
     $dir    = $this->templatePath . '/starterkit/_readme';
     $files = array_diff(scandir($dir), array('..', '.'));
     foreach ($files as $file) {
-      $output->writeln($file);
-
+      $filename = basename($file, '.twig');
       $this->addFile()
-        ->path($location . '{machine_name}/_readme/' . $file)
+        ->path($location . '{machine_name}/_readme/' . $filename . '.md')
         ->template('starterkit/_readme/' . $file);
     }
 
     // @TODO need panel_layouts (layouts)
-    $dir    = $this->templatePath . '/starterkit/panel_layouts';
-    $files = array_diff(scandir($dir), array('..', '.'));
-    foreach ($files as $file) {
-      $output->writeln($file);
-
-      $this->addFile()
-        ->path($location . '{machine_name}/panel_layouts/' . $file)
-        ->template('starterkit/panel_layouts/' . $file);
-    }
+//    $dir    = $this->templatePath . '/starterkit/panel_layouts';
+//    $files = array_diff(scandir($dir), array('..', '.'));
+//    foreach ($files as $file) {
+//      $output->writeln($file);
+//
+//      $this->addFile()
+//        ->path($location . '{machine_name}/panel_layouts/' . $file)
+//        ->template('starterkit/panel_layouts/' . $file);
+//    }
 
     // @TODO need _theming-guide
     $dir    = $this->templatePath . '/starterkit/_theming-guide';
     $files = array_diff(scandir($dir), array('..', '.'));
     foreach ($files as $file) {
-      $output->writeln($file);
-
+      $filename = basename($file, '.twig');
       $this->addFile()
-        ->path($location . '{machine_name}/_theming-guide/' . $file)
+        ->path($location . '{machine_name}/_theming-guide/' . $filename . '.md')
         ->template('starterkit/_theming-guide/' . $file);
     }
 
