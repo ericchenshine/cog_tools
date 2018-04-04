@@ -19,10 +19,8 @@ use Drush\Commands\DrushCommands;
 class CogToolsCommands extends DrushCommands {
 
   /**
-   * A helpful message to use `drush gen cog` to create a new cog sub theme.
+   * A helpful message.
    *
-   * @param $arg1
-   *   Argument description.
    * @param array $options
    *   An associative array of options whose values come from cli, aliases, config, etc.
    * @option option-name
@@ -33,7 +31,7 @@ class CogToolsCommands extends DrushCommands {
    * @command cog_tools:subTheme
    * @aliases cog
    */
-  public function subTheme($arg1, $options = ['option-name' => 'default']) {
+  public function subTheme($options = ['option-name' => 'default']) {
     $this->logger()->notice(dt('Use `drush gen cog` to create a new cog subtheme.'));
   }
 
