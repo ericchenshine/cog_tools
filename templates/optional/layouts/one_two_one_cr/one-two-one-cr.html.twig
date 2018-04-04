@@ -1,10 +1,11 @@
-{#
+{{ '{' }}#
 /**
  * @file
- * Template for a one-three-one column panel layout.
+ * Template for a one-two-one-cl column panel layout.
  */
-#}
-<div class="cog-pl panel-cog-layout-one-three-one" {% if css_id %}{{ css_id }}{% endif %}>
+#{{ '}' }}
+{% verbatim %}
+<div class="cog-pl panel-cog-layout-one-two-one-cr" {% if css_id %}{{ css_id }}{% endif %}>
     <div class="panel-panel">
         <div class="cog-panel--fullrow">
             <div class="cog-panel--mq">
@@ -14,7 +15,6 @@
         <div class="cog-panel--fullrow">
             <div class="cog-panel--mq">
                 <div class="cog-layout--middle-left">{{ content.middle_left }}</div>
-                <div class="cog-layout--middle-center">{{ content.middle_center }}</div>
                 <div class="cog-layout--middle-right">{{ content.middle_right }}</div>
             </div>
         </div>
@@ -25,3 +25,4 @@
         </div>
     </div>
 </div>
+{% endverbatim %}

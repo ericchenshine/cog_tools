@@ -29,6 +29,12 @@ class CogThemeGenerator extends BaseGenerator
 
     $vars = $this->collectVars($input, $output, $questions);
 
+    // Additional files.
+    $option_questions['gulp_tasks'] = new ConfirmationQuestion('Would you like to create gulp files?', TRUE);
+    $option_questions['layouts'] = new ConfirmationQuestion('Would you like to add layout files?', TRUE);
+
+    $options = $this->collectVars($input, $output, $option_questions);
+
     $output->writeln('Creating sub theme!');
 
     $vars['base_theme'] = Utils::human2machine($vars['base_theme']);
@@ -37,6 +43,8 @@ class CogThemeGenerator extends BaseGenerator
     $location = 'custom/';
 
     $prefix = $vars['machine_name'] . '/' . $vars['machine_name'];
+
+    // Global stuff.
 
     $this->addFile()
       ->path($location . $prefix . '.info.yml')
@@ -80,11 +88,6 @@ class CogThemeGenerator extends BaseGenerator
     $this->addDirectory()
       ->path($location . '{machine_name}/images');
 
-    // Layouts
-    $this->addFile()
-      ->path($location . $prefix . '.layouts.yml')
-      ->template('starterkit/layouts.twig');
-
     $css_files = [
       'base/elements.scss',
       'components/block.scss',
@@ -99,7 +102,6 @@ class CogThemeGenerator extends BaseGenerator
       'components/table.scss',
       'components/tabs.scss',
       'components/buttons.scss',
-      'layouts/layout.scss',
       'theme/print.scss',
     ];
     foreach ($css_files as $file) {
@@ -133,19 +135,6 @@ class CogThemeGenerator extends BaseGenerator
         ->template('starterkit/_readme/' . $file);
     }
 
-    $dir    = $this->templatePath . '/starterkit/panel_layouts';
-    $directories = array_diff(scandir($dir), array('..', '.'));
-
-    foreach ($directories as $directory) {
-      $dir    = $this->templatePath . '/starterkit/panel_layouts/' . $directory;
-      $files = array_diff(scandir($dir), array('..', '.'));
-      foreach ($files as $file) {
-        $this->addFile()
-          ->path($location . '{machine_name}/panel_layouts/' . $directory . '/' .  $file)
-          ->template('starterkit/panel_layouts/'  . $directory . '/' .  $file);
-      }
-    }
-
     $dir    = $this->templatePath . '/starterkit/_theming-guide';
     $files = array_diff(scandir($dir), array('..', '.'));
     foreach ($files as $file) {
@@ -155,17 +144,12 @@ class CogThemeGenerator extends BaseGenerator
         ->template('starterkit/_theming-guide/' . $file);
     }
 
-    // Additional files.
-    $option_questions['gulp_tasks'] = new ConfirmationQuestion('Would you like to create gulp files?', TRUE);
-
-    $options = $this->collectVars($input, $output, $option_questions);
-
+    // Gulp build tasks.
     if ($options['gulp_tasks']) {
 
       $this->addFile()
         ->path($location . '{machine_name}/gulpfile.js')
         ->template('optional/gulpfile.twig');
-
 
       $dir    = $this->templatePath . '/optional/gulp-tasks';
       $files = array_diff(scandir($dir), array('..', '.'));
@@ -175,8 +159,35 @@ class CogThemeGenerator extends BaseGenerator
           ->path($location . '{machine_name}/gulp-tasks/' .  $file)
           ->template('/optional/gulp-tasks/' . $file);
       }
-
     }
+
+    // Layouts.
+    if ($options['layouts']) {
+      $this->addFile()
+        ->path($location . $prefix . '.layouts.yml')
+        ->template('optional/layouts.twig');
+
+      $this->addFile()
+        ->path($location . '{machine_name}/layouts/layouts.scss')
+        ->template('optional/layouts.scss');
+
+      $dir = $this->templatePath . '/optional/layouts';
+      $directories = array_diff(scandir($dir), ['..', '.']);
+
+      foreach ($directories as $directory) {
+        $dir = $this->templatePath . '/optional/layouts/' . $directory;
+        $files = array_diff(scandir($dir), ['..', '.']);
+        foreach ($files as $file) {
+          $this->addFile()
+            ->path($location . '{machine_name}/layouts/' . $directory . '/' . $file)
+            ->template('optional/layouts/' . $directory . '/' . $file);
+        }
+      }
+    }
+
+    // Documentation.
+
+    // KSS Style guide.
 
   }
 

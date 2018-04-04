@@ -6,6 +6,9 @@ package: {{ package }}
 core: 8.x
 libraries:
   - {{ machine_name }}/global
+{% if layouts %}
+  - {{ machine_name }}/layouts
+{% endif %}
 regions:
   header: 'Header'
   primary_menu: 'Primary menu'

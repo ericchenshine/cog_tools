@@ -4,6 +4,7 @@ global:
     js/{{ machine_name|u2h }}.js: {}
   css:
     base:
+      css/base/styles.css: {}
       css/base/elements.css: {}
     component:
       css/components/block.css: {}
@@ -18,7 +19,12 @@ global:
       css/components/table.css: {}
       css/components/tabs.css: {}
       css/components/buttons.css: {}
-    layout:
-      css/layouts/layout.css: {}
     theme:
       css/theme/print.css: { media: print }
+
+{% if layouts %}
+layouts:
+  css:
+    layout:
+      css/layouts/layout.css: {}
+{% endif %}
