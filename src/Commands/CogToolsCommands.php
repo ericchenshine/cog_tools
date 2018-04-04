@@ -19,7 +19,7 @@ use Drush\Commands\DrushCommands;
 class CogToolsCommands extends DrushCommands {
 
   /**
-   * Command description here.
+   * A helpful message to use `drush gen cog` to create a new cog sub theme.
    *
    * @param $arg1
    *   Argument description.
@@ -27,62 +27,14 @@ class CogToolsCommands extends DrushCommands {
    *   An associative array of options whose values come from cli, aliases, config, etc.
    * @option option-name
    *   Description
-   * @usage cog_tools-commandName foo
-   *   Usage description
-   *
-   * @command cog_tools:commandName
-   * @aliases foo
-   */
-  public function commandName($arg1, $options = ['option-name' => 'default']) {
-    $this->logger()->success(dt('Achievement unlocked.'));
-  }
-
-  /**
-   * Generate a Cog subtheme.
-   *
-   * @param $arg1
-   *   Argument description.
-   * @param array $options
-   *   An associative array of options whose values come from cli, aliases, config, etc.
-   * @option option-name
-   *   Description
-   * @usage cog_tools-commandName foo
+   * @usage cog_tools-subTheme foo
    *   Usage description
    *
    * @command cog_tools:subTheme
    * @aliases cog
    */
   public function subTheme($arg1, $options = ['option-name' => 'default']) {
-    $this->logger()->success(dt('Achievement unlocked.'));
+    $this->logger()->notice(dt('Use `drush gen cog` to create a new cog subtheme.'));
   }
 
-  /**
-   * An example of the table output format.
-   *
-   * @param array $options An associative array of options whose values come from cli, aliases, config, etc.
-   *
-   * @field-labels
-   *   group: Group
-   *   token: Token
-   *   name: Name
-   * @default-fields group,token,name
-   *
-   * @command cog_tools:token
-   * @aliases token
-   *
-   * @return \Consolidation\OutputFormatters\StructuredData\RowsOfFields
-   */
-  public function token($options = ['format' => 'table']) {
-    $all = \Drupal::token()->getInfo();
-    foreach ($all['tokens'] as $group => $tokens) {
-      foreach ($tokens as $key => $token) {
-        $rows[] = [
-          'group' => $group,
-          'token' => $key,
-          'name' => $token['name'],
-        ];
-      }
-    }
-    return new RowsOfFields($rows);
-  }
 }
