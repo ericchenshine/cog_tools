@@ -1,17 +1,25 @@
 {{ '{' }}#
 /**
  * @file
- * Template for a one column panel layout.
+ * Template for a one column layout.
  */
 #{{ '}' }}
+{{ '{' }}%
+set classes = [
+'layout',
+'layout--one-col',
+]
+%{{ '}' }}
 {% verbatim %}
-<div class="cog-pl panel-cog-layout-one-col" {% if css_id %}{{ css_id }}{% endif %}>
-  <div class="panel-panel">
-    <div class="cog-panel--fullrow">
-      <div class="cog-panel--mq">
-        <div class="cog-layout--main">{{ content.main }}</div>
+{% if content %}
+  <div{{ attributes.addClass(classes) }}>
+
+    {% if content.main %}
+      <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main') }}>
+        {{ content.main }}
       </div>
-    </div>
+    {% endif %}
+
   </div>
-</div>
+{% endif %}
 {% endverbatim %}
