@@ -24,14 +24,14 @@ class CogThemeGenerator extends BaseGenerator
   protected function interact(InputInterface $input, OutputInterface $output) {
     $questions['name'] = new Question('Theme name');
     $questions['machine_name'] = new Question('Theme machine name');
-    $questions['base_theme'] = new Question('Base theme', 'cog');
+    $questions['base_theme'] = new Question('Base theme', 'classy');
     $questions['description'] = new Question('Description', 'Acquia D8 starter theme');
     $questions['package'] = new Question('Package', 'Custom');
 
     $vars = $this->collectVars($input, $output, $questions);
 
     // Additional files.
-    $option_questions['gulp_tasks'] = new ConfirmationQuestion('Would you like to create gulp files?', TRUE);
+    $option_questions['build_tasks'] = new ChoiceQuestion('Would you like to add build tasks?', ['no', 'gulp'], 'gulp');
     $option_questions['layouts'] = new ConfirmationQuestion('Would you like to add layout files?', FALSE);
     $option_questions['documentation'] = new ConfirmationQuestion('Would you like to add documentation files?', FALSE);
     $option_questions['theme_settings'] = new ConfirmationQuestion('Would you like to add starter theme settings files?', FALSE);
@@ -96,10 +96,6 @@ class CogThemeGenerator extends BaseGenerator
         ->path($location . '{machine_name}/config/schema/{machine_name}.schema.yml')
         ->template('starterkit/theme-settings-schema.twig');
     }
-    // Example js file.
-    $this->addFile()
-      ->path($location . '{machine_name}/js/' . str_replace('_', '-', $vars['machine_name']) . '.js')
-      ->template('starterkit/javascript.twig');
 
     // Empty directories.
     $this->addDirectory()
@@ -107,29 +103,6 @@ class CogThemeGenerator extends BaseGenerator
 
     $this->addDirectory()
       ->path($location . '{machine_name}/images');
-
-    // Blank starter css files.
-    $css_files = [
-      'base/elements.scss',
-      'components/block.scss',
-      'components/breadcrumb.scss',
-      'components/field.scss',
-      'components/form.scss',
-      'components/header.scss',
-      'components/menu.scss',
-      'components/messages.scss',
-      'components/node.scss',
-      'components/sidebar.scss',
-      'components/table.scss',
-      'components/tabs.scss',
-      'components/buttons.scss',
-      'theme/print.scss',
-    ];
-    foreach ($css_files as $file) {
-      $this->addFile()
-        ->path($location . '{machine_name}/sass/' . $file)
-        ->content('');
-    }
 
     // Node and nvm install script.
     $this->addFile()
@@ -159,28 +132,73 @@ class CogThemeGenerator extends BaseGenerator
       }
     }
 
+    // SCSS files.
+    // If KSS is selected, these include KSS comments, otherwise just styling.
+    $scss_files = [
+      '_config.scss',
+      '_utilities.scss',
+      'base/elements.scss',
+      'components/branding/branding.scss',
+      'components/breadcrumb/breadcrumb.scss',
+      'components/form/form.scss',
+      'components/header/header.scss',
+      'components/menu/menu.scss',
+      'components/messages/messages.scss',
+      'components/tabs/tabs.scss',
+      'components/buttons/buttons.scss',
+      'layouts/layout-main.scss',
+      'theme/print.scss',
+    ];
+    foreach ($scss_files as $file) {
+      $this->addFile()
+        ->path($location . '{machine_name}/patterns/' . $file)
+        ->template('optional/patterns/' . $file . '.twig');
+    }
 
     if ($options['style_guide'] == 'KSS') {
       $output->writeln('Do style guide!');
+      // Pattern twig files.
+      // Only copied if KSS is selected.
+      $twig_files = [
+        'base/blockquote.twig',
+        'base/headlines.twig',
+        'base/lists.twig',
+        'base/table.twig',
+        'base/text.twig',
+        'components/branding/branding.twig',
+        'components/breadcrumb/breadcrumb.twig',
+        'components/form/form_html.twig',
+        'components/form/form_html5.twig',
+        'components/header/header.twig',
+        'components/menu/menu.twig',
+        'components/messages/message.twig',
+        'components/tabs/tabs.twig',
+        'components/buttons/button.twig',
+        'layouts/layout.twig',
+      ];
+      foreach ($twig_files as $file) {
+        $this->addFile()
+          ->path($location . '{machine_name}/patterns/' . $file)
+          ->template('optional/patterns/' . $file);
+      }
+
+      $this->addFile()
+        ->path($location . '{machine_name}/patterns/style-guide-only/homepage.md')
+        ->template('optional/patterns/style-guide-only/homepage.md');
+
+      $this->addFile()
+        ->path($location . '{machine_name}/patterns/style-guide-only/kss-only.scss')
+        ->template('optional/patterns/style-guide-only/kss-only.scss');
     }
 
     // Gulp build tasks.
-    if ($options['gulp_tasks']) {
+    if ($options['build_tasks'] == 'gulp') {
       $output->writeln('Adding gulp tasks.');
 
       $this->addFile()
         ->path($location . '{machine_name}/gulpfile.js')
         ->template('optional/gulpfile.twig');
 
-//      $dir    = $this->templatePath . '/optional/gulp-tasks';
-//      $files = array_diff(scandir($dir), array('..', '.'));
-//
-//      foreach ($files as $file) {
-//        $this->addFile()
-//          ->path($location . '{machine_name}/gulp-tasks/' .  $file)
-//          ->template('/optional/gulp-tasks/' . $file);
-//      }
-      // @TODO
       $this->addFile()
         ->path($location . '{machine_name}/gulp-tasks/browser-sync.js')
         ->template('optional/gulp-tasks/browser-sync.twig');
