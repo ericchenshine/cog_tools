@@ -2,18 +2,23 @@
 @import '../../utilities';
 
 .block-system-branding-block {
-  @include clearfix;
+  display: flex;
+  align-items: center;
 }
 
-.site-logo img {
-  width: 105px;
-  display: block;
-  padding: 5px 5px 0;
-  float: left;
-  margin-bottom: 5px;
+.site-logo {
+
+  img {
+    width: 6.563em;
+    display: block;
+    padding: 0.313em 0.313em 0;
+    float: left;
+    margin-bottom: 0.313em;
+  }
 }
 
 .site-name {
-  padding: 30px 10px 10px;
-  font-size: 135%;
+  padding: 0.6em;
+  font-size: 2em;
+  flex: 1;
 }
