@@ -2,7 +2,6 @@
 
 namespace Drupal\cog_tools\Commands;
 
-use Consolidation\OutputFormatters\StructuredData\RowsOfFields;
 use Drush\Commands\DrushCommands;
 
 /**
@@ -22,8 +21,10 @@ class CogToolsCommands extends DrushCommands {
    * A helpful message.
    *
    * @param array $options
-   *   An associative array of options whose values come from cli, aliases, config, etc.
-   * @option option-name
+   *   An associative array of options whose values come from cli, aliases,
+   *   config, etc.
+   *
+   * @option array option-name
    *   Description
    * @usage cog_tools-subTheme foo
    *   Usage description

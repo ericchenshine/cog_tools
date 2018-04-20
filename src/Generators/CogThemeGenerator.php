@@ -10,17 +10,19 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
-
-class CogThemeGenerator extends BaseGenerator
-{
+/**
+ * Drush theme generator.
+ */
+class CogThemeGenerator extends BaseGenerator {
   protected $name = 'cog-theme';
   protected $description = 'Generates a cog theme.';
   protected $alias = 'cog';
   protected $templatePath = __DIR__ . "/../../templates";
   protected $destination = 'themes';
 
-
-
+  /**
+   * Prompt the user for desired theme options.
+   */
   protected function interact(InputInterface $input, OutputInterface $output) {
     $questions['name'] = new Question('Theme name');
     $questions['machine_name'] = new Question('Theme machine name');
@@ -113,8 +115,8 @@ class CogThemeGenerator extends BaseGenerator
     if ($options['documentation']) {
       $output->writeln('Adding documentation.');
 
-      $dir    = $this->templatePath . '/starterkit/_readme';
-      $files = array_diff(scandir($dir), array('..', '.'));
+      $dir   = $this->templatePath . '/starterkit/_readme';
+      $files = array_diff(scandir($dir), ['..', '.']);
       foreach ($files as $file) {
         $filename = basename($file, '.twig');
         $this->addFile()
@@ -122,8 +124,8 @@ class CogThemeGenerator extends BaseGenerator
           ->template('starterkit/_readme/' . $file);
       }
 
-      $dir    = $this->templatePath . '/starterkit/_theming-guide';
-      $files = array_diff(scandir($dir), array('..', '.'));
+      $dir   = $this->templatePath . '/starterkit/_theming-guide';
+      $files = array_diff(scandir($dir), ['..', '.']);
       foreach ($files as $file) {
         $filename = basename($file, '.twig');
         $this->addFile()
