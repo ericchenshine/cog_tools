@@ -1,5 +1,5 @@
 # cog_tools
-A companion module to the Cog theme.
+A Drupal 8 sub theme generator, with build tools.
 
 Enables sub theme generation via drush 9.
 
