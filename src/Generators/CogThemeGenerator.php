@@ -264,7 +264,7 @@ class CogThemeGenerator extends BaseGenerator
 
       $this->addFile()
         ->path($location . '{machine_name}/sass/layouts/layouts.scss')
-        ->template('optional/layouts.scss');
+        ->template('optional/patterns/layouts/layouts.scss');
 
       $dir = $this->templatePath . '/optional/layouts';
       $directories = array_diff(scandir($dir), ['..', '.']);
