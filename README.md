@@ -1,4 +1,5 @@
-# cog_tools
+# Cog Tools
+
 A Drupal 8 sub theme generator, with build tools.
 
 Enables sub theme generation via drush 9.
