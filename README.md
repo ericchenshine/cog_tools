@@ -5,11 +5,11 @@ Enables sub theme generation via drush 9.
 
 ## Quickstart:
 
- Download the cog base theme and this module
+ Download the cog_tools module.
  
  `composer require drupal/cog_tools`
  
-Enable this module
+Enable the cog_tools module
 
 `drush pm:enable cog_tools`
 
