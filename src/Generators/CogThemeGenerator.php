@@ -35,7 +35,6 @@ class CogThemeGenerator extends BaseGenerator {
     // Additional files.
     $option_questions['build_tasks'] = new ChoiceQuestion('Would you like to add build tasks?', ['no', 'gulp'], 'gulp');
     $option_questions['layouts'] = new ConfirmationQuestion('Would you like to add layout files?', FALSE);
-    $option_questions['documentation'] = new ConfirmationQuestion('Would you like to add documentation files?', FALSE);
     $option_questions['theme_settings'] = new ConfirmationQuestion('Would you like to add starter theme settings files?', FALSE);
     $option_questions['style_guide'] = new ChoiceQuestion('Would you like to include the style guide?', ['No', 'KSS'], 'No');
 
@@ -51,6 +50,11 @@ class CogThemeGenerator extends BaseGenerator {
     $prefix = $vars['machine_name'] . '/' . $vars['machine_name'];
 
     // Core cog stuff.
+
+    $this->addFile()
+      ->path($location . '{machine_name}/README.md')
+      ->template('starterkit/README.md');
+
     $this->addFile()
       ->path($location . $prefix . '.info.yml')
       ->template('starterkit/theme-info.twig');
@@ -111,28 +115,6 @@ class CogThemeGenerator extends BaseGenerator {
       ->path($location . '{machine_name}/install-node.sh')
       ->template('starterkit/install-node.sh');
 
-    // Documentation.
-    if ($options['documentation']) {
-      $output->writeln('Adding documentation.');
-
-      $dir   = $this->templatePath . '/starterkit/_readme';
-      $files = array_diff(scandir($dir), ['..', '.']);
-      foreach ($files as $file) {
-        $filename = basename($file, '.twig');
-        $this->addFile()
-          ->path($location . '{machine_name}/_readme/' . $filename . '.md')
-          ->template('starterkit/_readme/' . $file);
-      }
-
-      $dir   = $this->templatePath . '/starterkit/_theming-guide';
-      $files = array_diff(scandir($dir), ['..', '.']);
-      foreach ($files as $file) {
-        $filename = basename($file, '.twig');
-        $this->addFile()
-          ->path($location . '{machine_name}/_theming-guide/' . $filename . '.md')
-          ->template('starterkit/_theming-guide/' . $file);
-      }
-    }
 
     // SCSS files.
     // If KSS is selected, these include KSS comments, otherwise just styling.

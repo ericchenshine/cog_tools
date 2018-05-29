@@ -28,6 +28,6 @@ Enable your new sub theme. For a theme with the machine name `durian`:
 
 Passing in arguments via the command line:
 
-`drush gen cog --answers '{"name":"Durian", "machine_name": "durian", "base_theme": "classy", "description": "What a nice theme.", "package": "Custom", "build_tasks": "yes", "layouts":"yes", "documentation":"yes", "theme_settings":"yes","style_guide":"yes"}'`
+`drush gen cog --answers '{"name":"Durian", "machine_name": "durian", "base_theme": "classy", "description": "What a nice theme.", "package": "Custom", "build_tasks": "yes", "layouts":"yes", "theme_settings":"yes","style_guide":"yes"}'`
 
 Any answers that are left off here will be asked still, so this could be handy if you have a few options you almost always select.
