@@ -1,0 +1,30 @@
+site_name: Acquia Cog Tools Documentation
+
+repo_url: https://github.com/acquia-pso/cog_tools
+site_description: 'Cog Tools - A Drupal 8 sub theme generator, with build tools. '
+theme: readthedocs
+strict: true
+
+markdown_extensions:
+  - toc:
+      permalink: True
+
+pages:
+  - Home: 'index.md'
+  - Overview: 'README.md'
+  - Getting started:
+    - Setup - full: 'docs/setup-full.md'
+  - Project documentation:
+    - Cog theme:
+          - About Cog: 'docs/about-cog.md'
+    - Theme guide:
+        - Overview: 'docs/about-theme-guide.md'
+        - Advagg: 'docs/advagg.md'
+        - Fonts: 'docs/fonts.md'
+        - Images: 'docs/images.md'
+        - JavaScript: 'docs/javascript.md'
+        - Libraries: 'docs/libraries.md'
+        - Preprocessing: 'docs/preprocessing.md'
+        - Sass: 'docs/sass.md'
+        - Twig: 'docs/twig.md'
+  - Support & Contribution: '.github/CONTRIBUTING.md'
