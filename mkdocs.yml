@@ -18,7 +18,7 @@ pages:
     - Cog theme:
           - About Cog: 'about-cog.md'
     - Theme guide:
-        - Overview: 'about-theme-guide.md'
+        - Overview: 'about-theming-guide.md'
         - Advagg: 'advagg.md'
         - Fonts: 'fonts.md'
         - Images: 'images.md'
