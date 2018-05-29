@@ -90,7 +90,7 @@ There will be situations in which you will only want to attach libraries for cer
 ### File contents
 
 ```twig
-{{ '{{' }} attach_library('example/example-library') {{ '}}' }}
+{{ attach_library('example/example-library') }}
 ```
 
 <a name="preprocesslibraries"></a>
