@@ -27,4 +27,4 @@ pages:
         - Preprocessing: 'preprocessing.md'
         - Sass: 'sass.md'
         - Twig: 'twig.md'
-  - Support & Contribution: '.github/CONTRIBUTING.md'
+  - Support & Contribution: 'CONTRIBUTING.md'
