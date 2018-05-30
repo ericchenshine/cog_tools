@@ -1,13 +1,5 @@
 # Theming Guide: Preprocessing in Drupal
 
-* [Creating and Passing Custom Variables to Twig](#customvars)
-* [Creating Body Classes based on User Role](#userrole)
-* [Counting and Creating Classes per Region](#regionvar)
-* [Creating a Body Class for the Homepage](#homepage)
-* [Creating a Theme-Specific Variable for Twig](#themespec)
-* [Creating Body Classes based on Path Alias](#pathalias)
-* [Creating Body Classes based on Node Type](#nodetype)
-* [Common Variables in Twig files](#commonvars)
 
 ## Creating and Passing Custom Variables to Twig
 
@@ -31,7 +23,6 @@ function mytheme_preprocess_node(&$variables) {
 {{ my_node_id }}
 ```
 
-<a name="userrole"></a>
 ## Creating Body Classes based on User Role
 
 In this example we will add body classes based on the assigned roles based on the logged-in user. 
@@ -55,7 +46,6 @@ function mytheme_preprocess_html(&$variables) {
 }
 ```
 
-<a name="regionvar"></a>
 ## Counting and Creating Classes per Region
 
 In this example we will add DOM classes wrappers to each element in each region. This would typically be used to assign grid declarations for Susy columns. 
@@ -89,7 +79,6 @@ function mytheme_preprocess_region(&$variables) {
 }
 ```
 
-<a name="homepage"></a>
 ## Creating a Body Class for the Homepage
 
 In this example we add a body class based on frontpage path.
@@ -109,7 +98,6 @@ function mytheme_preprocess_html(&$variables) {
 }
 ```
 
-<a name="themespec"></a>
 ## Creating a Theme-Specific Variable for Twig 
 
 In this example we create a new theme variables to reference in multiple places with the preprocess functions that can be utilized in the twig file. 
@@ -152,7 +140,6 @@ function mytheme_preprocess_html(&$variables) {
 }
 ```
 
-<a name="nodetype"></a>
 ## Creating Body Classes based on Node Type
 
 In this example we create a new body classes that will render on content type.
@@ -171,7 +158,6 @@ function mytheme_preprocess_html(&$variables) {
 }
 ```
 
-<a name="commonvars"></a>
 ## Common Variables in Twig files
 
 Many used and unused variables exist out of the box for most of the core Twig files.
@@ -246,6 +232,7 @@ Many used and unused variables exist out of the box for most of the core Twig fi
 {{ is_admin }}  If user is admin
 {{ db_is_active }}  DB is active
 ```
+
 
 ---
 

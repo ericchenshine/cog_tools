@@ -1,8 +1,8 @@
 # Cog: Acquia D8 Theme
 
 * [Installation](#installation)
-  * [Create Cog Sub-Theme](#create-cog-sub-theme)
-  * [Setup Local Development](#setup-local-development)
+  * [Create Cog theme](#create-cog-theme)
+  * [Set up Local Development](#setup-local-development)
 * [Theme Overview](#overview)
   * [Folder Structure](#folder-structure)
   * [Sass Structure](#sass-structure)
@@ -14,25 +14,56 @@
 * [Further Documentation](#further-documentation)
 * [Build Notes](#build-notes)
 
+
 ---
+
 
 ## Installation
 
-The Cog theme is set up to utilize the `base => sub-theme` relationship. The steps below will create your custom sub-theme that is cloned from `STARTERKIT/` folder, along with installing the proper dependencies to setup in a matter of minutes. This approach supports release updates, in addition to providing source references for required and optional pieces.
+### Create Cog theme
 
-### Create Cog Sub-Theme
+If you are reading this, it is likely that you have already done this. This theme is a starter theme created from a drush generator provided by the [Cog Tools module](https://github.com/acquia-pso/cog_tools). For reference, there are instructions on [creating a new theme](https://cog-tools.readthedocs.io/en/latest/README/#quickstart) in the online docs. Previously Cog provided a very simple base theme, but this version of Cog defaults to being a sub-theme of the Classy core theme.
 
-* In your `themes/` directory create the `contrib/` and `custom/` directories
-* Download Cog into the `themes/contrib` folder and enable using `drush en cog`
-* Create the sub-theme with `drush cog "MyTheme"` (if you'd like to customize, first run `drush help cog` to see available options)
-* Enable your new `MyTheme` theme with `drush en mytheme` which is located in `themes/custom`
-* Set `MyTheme` as your default theme `drush config-set system.theme default mytheme`
+#### Generating a Cog theme
 
-### Setup Local Development
+Download the cog_tools module.
+ 
+`composer require drupal/cog_tools`
+ 
+Enable the cog_tools module
 
-Once you have created a custom sub-theme, you will setup for local compiling. If you would like to review a more detailed explanation of these steps, read the [full setup readme](_readme/setup-full.md).
+`drush pm:enable cog_tools`
 
-* Navigate to `themes/custom/mytheme` folder in your terminal
+Create a sub theme with drush.
+
+`drush generate cog`
+
+Drush will provide a series of questions to set options for the generated theme. The only value without a default is the theme name.
+
+Enable your new sub theme. For a theme with the machine name `my_theme`:
+
+`drush theme:enable my_theme`
+
+
+### Set up local development
+
+Once you have created a custom theme, you need to do a bit of environment set up in order to run the build tools. If you would like to review a more detailed explanation of these steps, read the [full setup readme](https://cog-tools.readthedocs.io/en/latest/setup-full/).
+
+#### Acquia BLT + DrupalVM
+[Acquia BLT](http://blt.readthedocs.io/en/latest/) is a project build system. If your project is using BLT + DrupalVM, do not use the provided shell script to install node (it won't work anyway). The BLT provided version of DrupalVM has node provisioned out of the box (currently should be node 8). If you need to adjust this version for your team, you can edit the `box/config.yml` variable `nodejs_version`, and then when the machine is provisioned or reprovisioned it will get the new version. For example, to set the version of node to 9+:
+
+* Set `nodejs_version: "9.x"` in `box/config.yml`
+* If box is already built, call `vagrant provision` to install the new node version
+
+You may also want to add or remove global node packages in `nodejs_npm_global_packages`, depending on the needs of your project.
+
+
+#### Using shell script to install node
+This shell script is provided to enable more consistent local environment set up when not using a VM or Docker based solution. It installs [nvm](https://github.com/creationix/nvm) and whatever version of node is provided to it as an argument. It is provided for utility only and there is no guarantee it will work on your local system. It will not work on Windows as nvm does not support Windows. [See 'important notes'](https://github.com/creationix/nvm#important-notes).
+
+Steps: 
+* Navigate to `themes/custom/my_theme` folder in your terminal
+* Make install script executable `chmod +x install-node.sh `
 * Install Node.js with `./install-node.sh 8.9.1` and then point to the proper version with `source ~/.bashrc && nvm use --delete-prefix 8.9.1` 
   * (optional) If you are not using avn then run `nvm use 8.9.1` when closing and reopening your session
   * (optional) If you choose to use avn follow the instructions [here](_readme/setup-full.md#avn)
@@ -43,56 +74,49 @@ Once you have created a custom sub-theme, you will setup for local compiling. If
 
 ## Theme Overview
 
-Cog is a developer-focused base theme and starterkit created by Acquia's Professional Service Front-end Team. It is intended as a minimalistic baseline for custom theming, while exposing common tools and workflows. Cog provides a small amount of code to get started, but is still packed with utilities to extend.
+Cog is a developer-focused theme starterkit created by Acquia's Professional Service front end team. It is intended as a minimalistic baseline for custom theming, while exposing common tools and workflows. Cog provides a small amount of code to get started, but is still packed with utilities to extend.
 
-* Responsive containers built on Susy grid system
+* Responsive containers built on CSS Grid, with a Susy grid system fallback for legacy browsers
 * Initial SMACSS file architecture
 * Common Twig files and theme dependencies
 * Base preprocess functions for class definitions
 * Modular gulp tasks for compiling and linting
 * Living style guide construction via KSS-node
-
-Cog is created with the intent of being used as a traditional base theme. By following the steps listed next, you will be cloning the starter sub-theme located in `cog/STARTERKIT`. This allows for proper delineation of the original Cog code from the flexible aspects of your custom theme.  
-
-```
-contrib/ (theme folder)
-|-- cog/
-|---- STARTERKIT/ 
-
-custom/ (theme folder)
-|-- mytheme/ (cloned from starterkit) 
-```
+  
 
 ### Folder Structure
 
 ```
+|-- config/  (install config for block positions and settings) 
 |-- css/  (generated css) 
 |-- gulp-tasks/ (modular gulp task files)
 |-- images/  (theme images)
 |-- js/  (compiled js)
-|-- sass/  (SMACSS based sass setup)
+|-- layouts/  (template files for defined layouts)
+|-- patterns/  (Component based styling, SCSS files and component templates)
+|-- templates/  (folder for Drupal theme template files)
 |-- gulpfile.js  (configured gulp file) 
 |-- install-node.sh (bash script to install nvm and node)
-|-- logo.png (placeholder logo png file)
 |-- logo.svg (placeholder logo svg file)
 |-- node_modules/  (modules generated by npm)
 |-- package.json  (configured to load dependencies by npm)
-|-- README-SETUP.md (Quickstart documentation theme)
-|-- screenshot.png (placeholder theme screenshot file)
+|-- README.md (This file)
+|-- [theme-name].breakpoints.yml (theme default breakpoints)
 |-- [theme-name].info.yml (theme config file)
 |-- [theme-name].libraries.yml (starter libraries file to load theme assets)
+|-- [theme-name].layouts.yml (configuration for provided layouts)
 |-- [theme-name].theme (file to use for preprocess functions)
 |-- theme-settings.php (file to use for making theme settings available in the GUI)
 ```
 
-### Sass Structure
+## Sass Structure
 
 Setup of the Sass files so that they are properly broken out in partials and according to the SMACSS methodologies.
 
 ```
-sass/
+patterns/
   |-- _config.scss
-  |-- _reset.scss
+  |-- _utilities.scss
   |-- base/
   |-- layout/
   |-- components/
@@ -103,19 +127,19 @@ sass/
   |-- style.scss
 ```
 
-* **\_config.scss** this configuration is housing common mixins, variables, or similar, normally you would want to break these out in separate partials
-* **styles.scss**  the manifest file that imports all the partials or folders with globbing 
-* **base/** intended as the baseline pstyles that you extend upon and will include things like resets, global typography, or common form selectors.
-* **layout/**  for structural layout that can apply to both the outer containers like the sidebars or headers, but also on inner structural pieces.
+* **\_config.scss** this file is for common variables
+* **\_utilities.scss** this file is for common mixins, extends, or similar. As your theme grows you might want to break these out in separate partials
+* **base/** intended as the baseline styling for HTML elements that you extend upon and will include things like resets, global typography, or common form selectors.
+* **layouts/**  for structural layout that can apply to both the outer containers like the sidebars or headers, but also on inner structural pieces.
 * **components/** these module files are the reusable or component parts of our design.
 * **state/** modules will adjust when in a particular state, in regards to targeting how changes happen on contextual alterations for regions or similar  
 * **style-guide-only/** contains homepage.md which provides the content for the Overview section of the styleguide, and kss-only.scss which generates a css file for styling needed by a component for display in the style guide, but not loaded into the actual theme  
 
-### Gulp 
+## Gulp 
 
 The Gulp installation and tasks are setup to work on install, but are still intended to be easily updated based on project needs. The tasks are declared in `gulpfile.js` and broken out within the `gulp-tasks/` subfolder. You can list the available Gulp tasks with `gulp --tasks`. The most common gulp task is `gulp watch` when developing locally, which covers Sass compiling, JS linting, and building dynamic styleguides.  
 
-### JavaScript
+## JavaScript
 
 An example JS file `theme.js` is added by default in the `js/` folder. This file contains sample code wrapped in the `Drupal.behaviors` code standard. This JS file is added to the theme with the following portion of the code from `[theme-name].libraries.yml`. Cog does not have compression enabled for Gulp since it is relying on Drupal's caching system. 
 
@@ -125,11 +149,11 @@ lib:
     js/theme.js: {}
 ```
 
-### Grid System
+## Grid System
 
-The Cog grid structure was setup with the intent of having a very minimalist starting point. The theme grid container is setup with a single class `.cog--mq` located in `layout/_containers.scss` that contains the following starter Susy container: `@include container(80em)`. In the `layout/_sidebars.scss` file is the column code for each combination of sidebars based on the Susy syntax. The body classes are defined with a preprocess conditional in `[theme-name].theme` for each scenario.
+The Cog grid structure was setup with the intent of having a very minimalist starting point, utilizing mostly what classes are available in the Classy base theme. In the `layouts/_layout-main.scss` file is basic CSS Grid layout styling to provide simple sidebars. There are Susy fallbacks for legacy browsers in the same .scss file. The body classes to enable this are defined with a preprocess conditional in `[theme-name].theme` for each scenario. 
 
-### Theme Regions
+## Theme Regions
 
 The regions available are standard with classic sidebar region, along with pre and post content areas. The intent is to allow for containers to go full-width and rely on the grid containers for inner Susy containers.
 
@@ -137,26 +161,29 @@ The regions available are standard with classic sidebar region, along with pre a
 [theme-name].info.yml
 
 regions:
-  branding: Branding
-  header: Header
-  pre_content: 'Pre content'
-  content: Content
+  header: 'Header'
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  featured: 'Featured'
+  breadcrumb: 'Breadcrumb'
+  content: 'Content'
   sidebar_first: 'Sidebar first'
   sidebar_second: 'Sidebar second'
-  post_content: 'Post content'
-  footer: Footer
+  footer: 'Footer'
+
 ```
 
-![regions](http://content.screencast.com/users/BedimStudios/folders/Jing/media/8ad8ecf1-bb60-4292-80b0-115fae8daac0/00001643.png)
 
-### Images 
+## Images 
 
 The images designated for your custom theme can be placed in the `images/` folder. By default we do not have compression setup with subfolder, but do highly recommend based on need. Image compression and spriting requires vast differences with the amount images and this can be a task-intensive process for Gulp and automated builds. However for most of our builds, we do utilize both image compression and spriting with the standard subfolders with Gulp automation workflow: `images/src/` `images/dist/`
 
 ## Further Documentation
 
 Cog also ships with an extensive list of documentation and code samples that which were intentionally left out of the theme. 
-We have collected all the examples in an easy reference [listed here](_theming-guide/readme.md).
+We have collected all the examples in an easy reference [available here](https://cog-tools.readthedocs.io/en/latest/).
 
 ## Build Notes
 

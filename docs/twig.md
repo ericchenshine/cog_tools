@@ -2,13 +2,7 @@
 
 The introduction of the Twig rendering engine in Drupal 8 offers a wide range of flexibility within templates. The core syntax is very similiar to most programming languages, with slight alterations based on context. Below are some code examples of common tasks when coding within Twig.
 
-* [Twig Basics](#twigbasics)
-* [Twig Comparison and Control Operators](#twigcompare)
-* [Twig Functions and Filters](#twigfunc)
-* [Enable Twig Debugging](#twigenabledebug)
-* [Debugging Options in Twig](#twigdebug)
 
-<a name="twigbasics"></a>
 ## Twig Basics
 
 ```twig
@@ -28,7 +22,7 @@ I am {{ hamburgers }}
 {% set myarray = {'acorn': 'awesome', 'tree': 'better'} %}
 ```
 
-<a name="twigcompare"></a>
+
 ## Twig Comparison and Control Operators
 
 ```twig
@@ -73,7 +67,7 @@ I am {{ hamburgers }}
 {% if numbers matches '/^[\\d\\.]+$/' %} {% endif %}
 ```
 
-<a name="twigfunc"></a>
+
 ## Twig Functions and Filters
 
 ```twig
@@ -149,7 +143,7 @@ I am {{ hamburgers }}
 {% users|sort %}
 ```
 
-<a name="twigenabledebug"></a>
+
 ## Enable Twig Debugging
 
 In order to enable Twig debugging you simply need to change a variable in the `sites/default/services.yml` file. If you have not created your `services.yml` yet, just copy and rename your  `default.services.yml` file. 
@@ -182,8 +176,8 @@ After you have enabled debugging, you will see similiar markup in your DOM.
    x node.html.twig
 ```
 
-<a name="twigdebug"></a>
-### Debugging Options in Twig 
+
+## Debugging Options in Twig 
 
 ```twig
 # using kint in twig file 
@@ -203,6 +197,7 @@ After you have enabled debugging, you will see similiar markup in your DOM.
   <li>{{ key }}</li>
 {% endfor %}
 ```
+
 
 ---
 

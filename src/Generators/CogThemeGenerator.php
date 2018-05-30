@@ -245,7 +245,7 @@ class CogThemeGenerator extends BaseGenerator {
         ->template('optional/layouts.twig');
 
       $this->addFile()
-        ->path($location . '{machine_name}/sass/layouts/layouts.scss')
+        ->path($location . '{machine_name}/patterns/layouts/layouts.scss')
         ->template('optional/patterns/layouts/layouts.scss');
 
       $dir = $this->templatePath . '/optional/layouts';

@@ -11,9 +11,8 @@ markdown_extensions:
 
 pages:
   - Home: 'index.md'
-  - Overview: 'README.md'
   - Getting started:
-    - Setup - full: 'setup-full.md'
+    - Setup: 'setup-full.md'
   - Project documentation:
     - Cog theme:
           - About Cog: 'about-cog.md'
@@ -25,6 +24,8 @@ pages:
         - JavaScript: 'javascript.md'
         - Libraries: 'libraries.md'
         - Preprocessing: 'preprocessing.md'
-        - Sass: 'sass.md'
+        - Sass Style Organization: 'sass.md'
+        - Component Rules with Media Queries: 'sass.md'
+        - CSS Preprocessing: 'sass.md'
         - Twig: 'twig.md'
   - Support & Contribution: 'CONTRIBUTING.md'
