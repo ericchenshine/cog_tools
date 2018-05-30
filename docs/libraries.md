@@ -1,14 +1,7 @@
 # Theming Guide: Drupal 8 Libraries
 
-* [Defining Local Libraries in Drupal 8](#locallibs)
-* [Defining External Libraries in Drupal 8](#remotelibs)
-* [Adding Library Dependencies](#dependencylibs)
-* [Attaching Libraries within Twig files](#attachtwig)
-* [Attaching Libraries within Preprocess Functions](#preprocesslibraries)
-* [Replacing or Removing Libraries](#replaceremovelibs)
 
 ## Defining Local Libraries in Drupal 8
-<a name="locallibs"></a>
 
 A majority of themes start out with baseline CSS and JS files that are needed site-wide. In these cases, we declare and attach these local libraries within the theme.  
 
@@ -39,7 +32,6 @@ global:
       js/theme.js: {}
 ```
 
-<a name="remotelibs"></a>
 ## Defining External Libraries in Drupal 8
 
 When referencing external JS and CSS assets that are hosted outside the site, make sure to pass the `type: external` syntax within the `EXAMPLE.libraries.yml` libraries file. 
@@ -57,7 +49,6 @@ fonts:
       '//fonts.googleapis.com/css?family=Open+Sans:400,700,300': {type: external}
 ```
 
-<a name="dependencylibs"></a>
 ## Adding Library Dependencies
 
 When utilizing common library dependencies, just reference within your `EXAMPLE.libraries.yml` file. In the following example, we will set both jQuery and Drupal Settings as dependencies.  
@@ -78,7 +69,6 @@ global:
         - core/drupalSettings
 ```
 
-<a name="attachtwig"></a>
 ## Attaching Libraries within Twig files 
 
 There will be situations in which you will only want to attach libraries for certain markup. In this example we will utilize the new Drupal 8 function `attach_library()` to add a library within the node twig file. 
@@ -93,7 +83,6 @@ There will be situations in which you will only want to attach libraries for cer
 {{ attach_library('example/example-library') }}
 ```
 
-<a name="preprocesslibraries"></a>
 ### Attaching Libraries within Preprocess Functions 
 
 You have the option to attach a library in the preprocess level for custom scenarios. In the following example we will only attach the library for article node pages. 
@@ -112,7 +101,6 @@ function EXAMPLE_preprocess_page(&$variables) {
 } 
 ```
 
-<a name="replaceremovelibs"></a>
 ## Replacing or Removing Libraries 
 
 Situations will arise when you need to replace a library or remove it all together. In the following example we will show examples of both. 
@@ -129,6 +117,7 @@ libraries-override:
     example/messages
   classy/file: false # remove
 ```
+
 
 ---
 

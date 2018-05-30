@@ -1,12 +1,6 @@
 # Theming Guide: Images in Drupal
 
-* [Create Render Array for Original Image](#origrenderarray)
-* [Create Render Array with Image Style](#stylerenderarray)
-* [Create Image Object from URI](#imguri)
-* [Return Image Information from File ID](#imgfiduri)
-* [Compressing Images with Gulp](#gulpcompr)
 
-<a name="origrenderarray"></a>
 ## Create Render Array for Original Image
 
 Some situations will arise in which you will need to create an original version of an image to render in Twig. In the following example we will create a render array to render image within your template. 
@@ -125,7 +119,6 @@ function EXAMPLE_preprocess_node(&$variables) {
 }
 ```
 
-<a name="imgfiduri"></a>
 ## Return Image Information from File ID
 
 When you will need to retrieve the URI based on the `fid`, you can use the `File` class with the `getFileUri` function. Other useful utility functions are included in this class when needing file information from the `file_managed` table. 
@@ -152,7 +145,6 @@ function EXAMPLE_preprocess_node(&$variables) {
 
 ```
 
-<a name="gulpcompr"></a>
 ## Compressing Images with Gulp
 
 There are instances where your theme will use a good amount of images for common elements on your site. To assist with performance, we typically use the gulp-imagemin package to minify images. 
@@ -180,6 +172,7 @@ gulp.task('imagemin', function () {
 After you run the new image task with `gulp imagemin`, the images in `src/` will be compressed and copied to `dist/` as shown here: 
 
 ![normal](https://content.screencast.com/users/BedimStudios/folders/Jing/media/9664c1e6-fb09-4a91-8855-e9b84bedf819/00001982.png "") ![normal](https://content.screencast.com/users/BedimStudios/folders/Jing/media/a74122bb-44cb-4e17-9e5f-036a9db13a5d/00001983.png "")
+
 
 ---
 

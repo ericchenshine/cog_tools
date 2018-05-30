@@ -1,12 +1,6 @@
 # Theming Guide: Sass in Drupal
 
-* [Sass Style Organization](#sassorg)
-* [Component Rules with Media Queries](#componenmqs)
-* [CSS Preprocessing](#csspreprocess)
-* [Writing Effective Style Rules](#effectivestyles)
-* [Media Queries Coding Techniques](#mqtechniques)
 
-<a name="sassorg"></a>
 ## Sass Style Organization
 
 This theme breaks down stylesheets according to the SMACSS-BEM methodology, similar to the core theme Classy. The following categories are broken down into actual folders that contain sass partials. Everything in these folders is compiled down to a single stylesheet that is loaded by the theme.
@@ -21,7 +15,7 @@ This theme breaks down stylesheets according to the SMACSS-BEM methodology, simi
 
 *With SMACSS, the intent is to keep the styles that pertain to a specific component with the rest of the component. That means that instead of having a single break point, either in a main CSS file or in a separate media query style sheet, place media queries around the component states.*
 
-<a name="componenmqs"></a>
+
 ## Component Rules with Media Queries
 
 **CSS Version**
@@ -48,7 +42,6 @@ This theme breaks down stylesheets according to the SMACSS-BEM methodology, simi
 }
 ```
 
-<a name="csspreprocess"></a>
 ## CSS Preprocessing
 
 CSS preprocessors allow themers to be more efficient when developing a sub theme. We prefer SASS, using scss syntax, and using Compass. These are the Zen 5 defaults and work well. We recommend using Compass for creating sprites for your site using two sprite directories, one for standard resolution, one for retina resolutions.
@@ -71,7 +64,6 @@ The majority of your scss files should be partials. These partials are then impo
 @import "components/footer";
 ```
 
-<a name="effectivestyles"></a>
 ## Writing Effective Style Rules
 
 When writing styles, the themer’s goal should be to write efficient CSS. This means using the least amount of selectors possible. The best performance in CSS is the ID, but this is often not a realistic selector to use because it limits it's reusability. The exceptions are for layout rules and unique rules for unique items, like the site-name. After that is the class selector, which should be the target of the majority of your rules. Though we write CSS left to right ( `#content .field-item p` ) a browser reads CSS right to left. So in the previous rule, it would first find every paragraph on the page. Then it invalidate the ones that aren’t inside a `.field-item` class. Then invalidate the remaining ones that aren’t inside of an element with the ID `#content`. When using a CSS Preprocessor, a lot of care needs to be taken in regards to selector depth. It’s extremely easy to nest selectors which will result in extremely inefficient styles.
@@ -134,7 +126,6 @@ A great module that can be used to set up your theme’s generic styles is the s
 
 Though drupal.org style guidelines don’t consider css preprocessors very much, and some information seems outdated, the css guidelines are worth reading. https://drupal.org/node/1886770
 
-<a name="mqtechniques"></a>
 ## Media Queries Coding Techniques
 
 There are two ways to really build a responsive site. Which way you go, usually depends on the design provided, which determines the way you work and how you write your media queries.
@@ -163,6 +154,7 @@ There are two ways to really build a responsive site. Which way you go, usually 
 - If developing with a mobile-first strategy, do it. Meaning, write styles and check in a browser at the smallest viewport before working your way up in regards to viewport size.
 - A task isn't complete until all viewports are correct
 - Sadly, regardless of how many breakpoints are defined by a designer, and the comps provided by the designer, unless design was done in a browser, there are going to be natural breaks in between breakpoints. Since the number and variety of devices continue to grow all the time, you usually can't ignore those. If you're defining your media queries or breakpoints as variables and/or using a mixin, I find it easier to handle one-offs as hand coded media queries because if you decide to adjust breakpoints globally, these rules generally aren't effected and you don't want them to change.
+
 
 ---
 

@@ -22,14 +22,13 @@ source ~/.bashrc && nvm use --delete-prefix 8.9.1
 
 If you are not using avn or something similar then you will need to repeat `nvm use 8.9.1` if you close and reopen your session.
 
-<a name="avn"></a>
-### AVN (Automatic Version Switching for Node)
+## AVN (Automatic Version Switching for Node)
 
-#### Why would you want to install AVN?
+### Why would you want to install AVN?
 
 By default, nvm is session based so you will need to run `nvm use 8.9.1` again if you close your terminal and reopen it later. It is recommended to use a tool such as [avn](https://github.com/wbyoung/avn). This will pick up the node version from the `.node-version` file that the provided install script places in the theme directory. When you `cd` to the theme directory avn will use nvm to switch to the appropriate installed node version automatically.
 
-#### AVN install:
+### AVN install:
 
 ```bash
 npm install -g avn avn-nvm
@@ -57,7 +56,7 @@ To run gulp there is a built in npm run-script:
 npm run build
 ```
 
-### Gulp
+## Gulp
 
 Gulp is already included once `npm run install-tools` has been run, but unless it is installed globally you will need to use the npm scripts such as `npm run build` to call it. You can also install a global version of gulp to run gulp tasks directly:
 
@@ -67,7 +66,7 @@ npm install -g gulp-cli
 
 After gulp is installed globally it can be called like `gulp`, `gulp build` or `gulp watch`. The gulpfile documents available tasks outside of the default `gulp` task, which runs a production ready theme build. You can use `gulp --tasks` to get a list of these tasks as well. You can also use `npm run` to see which npm scripts are available and what commands they call.
 
-### Browsersync
+## Browsersync
 
 [Browsersync](https://www.browsersync.io/) is configured to allow for multi-device testing and to automatically refresh the page when changes are made to your theme's styles and javascript. You can start Browsersync with `npm run serve`, or `gulp serve` if Gulp has been installed globally. The serve task will automatically start the watch task in the background, so there is no need to run them both.
 
