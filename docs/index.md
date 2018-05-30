@@ -9,7 +9,7 @@ Welcome to the [Acquia Cog Tools](https://github.com/acquia-pso/cog_tools) docum
 Cog Tools is a Drupal 8 module. It requires Drush 9.x to function.
 
 
-## Generating a Cog Subtheme
+## Generating a Cog theme
 
 Download the cog_tools module.
  
