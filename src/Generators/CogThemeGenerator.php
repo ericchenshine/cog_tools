@@ -50,7 +50,6 @@ class CogThemeGenerator extends BaseGenerator {
     $prefix = $vars['machine_name'] . '/' . $vars['machine_name'];
 
     // Core cog stuff.
-
     $this->addFile()
       ->path($location . '{machine_name}/README.md')
       ->template('starterkit/README.md');
@@ -114,7 +113,6 @@ class CogThemeGenerator extends BaseGenerator {
     $this->addFile()
       ->path($location . '{machine_name}/install-node.sh')
       ->template('starterkit/install-node.sh');
-
 
     // SCSS files.
     // If KSS is selected, these include KSS comments, otherwise just styling.
