@@ -2,8 +2,8 @@
 
 * [Installation](#installation)
   * [Create Cog theme](#create-cog-theme)
-  * [Set up Local Development](#setup-local-development)
-* [Theme Overview](#overview)
+  * [Set up Local Development](#set-up-local-development)
+* [Theme Overview](#theme-overview)
   * [Folder Structure](#folder-structure)
   * [Sass Structure](#sass-structure)
   * [Gulp](#gulp)
