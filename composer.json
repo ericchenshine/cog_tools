@@ -1,7 +1,7 @@
 {
     "name": "org/cog_tools",
     "description": "This extension provides new commands for Drush.",
-    "type": "drupal-drush",
+    "type": "drupal-module",
     "authors": [
         {
             "name": "Author name",
